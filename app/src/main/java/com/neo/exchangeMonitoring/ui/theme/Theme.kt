@@ -1,4 +1,4 @@
-package com.example.ExchangeMonitoring.ui.theme
+package com.neo.exchangeMonitoring.ui.theme
 
 import android.app.Activity
 import android.os.Build

@@ -1,4 +1,4 @@
-package com.example.ExchangeMonitoring
+package com.neo.exchangeMonitoring
 
 import org.junit.Test
 
