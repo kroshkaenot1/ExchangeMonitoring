@@ -1,12 +1,10 @@
 package com.neo.exchangeMonitoring.domain.usecase
 
-import com.neo.exchangeMonitoring.domain.model.Currency
+import com.neo.exchangeMonitoring.data.remote.models.CurrencyRemote
 import com.neo.exchangeMonitoring.domain.repository.CurrencyRepository
-import java.math.BigDecimal
-import java.util.LinkedList
 
-class GetAllCurrenciesUseCase(val currencyRepository: CurrencyRepository) {
-    fun execute():LinkedList<Currency>{
+class GetAllCurrenciesUseCase(private val currencyRepository: CurrencyRepository) {
+    suspend fun execute():List<CurrencyRemote>{
         return currencyRepository.getAllCurrency()
     }
 }

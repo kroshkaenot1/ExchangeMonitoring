@@ -1,0 +1,15 @@
+package com.neo.exchangeMonitoring.di
+
+import com.neo.exchangeMonitoring.data.repositoryimpl.CurrencyRepositoryImpl
+import com.neo.exchangeMonitoring.domain.repository.CurrencyRepository
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class CurrencyRepositoryModule {
+    @Binds
+    abstract fun bindCurrencyRepositoryImplToCurrencyRepository(Impl: CurrencyRepositoryImpl): CurrencyRepository
+}

@@ -1,21 +1,19 @@
 package com.neo.exchangeMonitoring.data.repositoryimpl
 
-import com.neo.exchangeMonitoring.domain.model.Currency
+import com.neo.exchangeMonitoring.data.remote.APICurrencyService
+import com.neo.exchangeMonitoring.data.remote.models.CurrencyRemote
 import com.neo.exchangeMonitoring.domain.repository.CurrencyRepository
 import java.math.BigDecimal
-import java.util.LinkedList
+import javax.inject.Inject
 
-class CurrencyRepositoryImpl:CurrencyRepository {
+
+class CurrencyRepositoryImpl @Inject constructor(private val apiCurrencyService: APICurrencyService) : CurrencyRepository {
     override fun addCurrency(name: String, price: BigDecimal) {
         TODO("Not yet implemented")
     }
 
-    override fun getAllCurrency() : LinkedList<Currency> {
-        val currencies : LinkedList<Currency> = LinkedList<Currency>()
-        for (i in 1..10){
-            currencies.add(Currency(i, "$i usd", BigDecimal( i*2)))
-        }
-        return currencies
+    override suspend fun getAllCurrency(): List<CurrencyRemote> {
+       return apiCurrencyService.getCurrencies().valute.values.toList()
     }
 
     override fun getCurrency() {
