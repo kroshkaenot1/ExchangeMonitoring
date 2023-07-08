@@ -11,5 +11,6 @@ data class CurrencyDbEntity(
     @ColumnInfo(name = "char_code") val charCode : String,
     @ColumnInfo(name = "name") val name : String,
     @ColumnInfo(name = "value") val value : Double,
-    @ColumnInfo(name = "previous") val previous : Double
+    @ColumnInfo(name = "previous") val previous : Double,
+    @ColumnInfo(name = "is_favorite") val isFavorite : Boolean
 )

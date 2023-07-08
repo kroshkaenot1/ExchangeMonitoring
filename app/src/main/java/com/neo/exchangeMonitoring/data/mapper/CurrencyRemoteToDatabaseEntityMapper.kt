@@ -9,6 +9,7 @@ class CurrencyRemoteToDatabaseEntityMapper {
             charCode = currencyRemote.charCode,
             name = currencyRemote.name,
             value = currencyRemote.value,
-            previous = currencyRemote.previous
+            previous = currencyRemote.previous,
+            isFavorite = false
         )
 }

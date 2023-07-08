@@ -6,11 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.neo.exchangeMonitoring.data.database.dao.CurrencyDao
 import com.neo.exchangeMonitoring.data.database.entities.CurrencyDbEntity
-import com.neo.exchangeMonitoring.data.database.entities.FavoriteCurrenciesDbEntity
 
 @Database(
     version = 1,
-    entities = [CurrencyDbEntity::class, FavoriteCurrenciesDbEntity::class]
+    entities = [CurrencyDbEntity::class]
 )
 abstract class CurrencyDatabase : RoomDatabase() {
     abstract fun getCurrencyDao(): CurrencyDao
@@ -24,7 +23,7 @@ abstract class CurrencyDatabase : RoomDatabase() {
                 database = Room.databaseBuilder(
                     context = context,
                     CurrencyDatabase::class.java,
-                    name = "db"
+                    name = "ExchangeMonitoring.db"
                 ).build()
                 database as CurrencyDatabase
             } else {

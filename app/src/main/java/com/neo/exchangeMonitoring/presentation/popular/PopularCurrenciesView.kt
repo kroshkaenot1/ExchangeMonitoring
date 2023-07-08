@@ -12,6 +12,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.HotelClass
+import androidx.compose.material.icons.filled.StarOutline
+import androidx.compose.material.icons.filled.TrendingUp
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -19,9 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.neo.exchangeMonitoring.domain.model.Currency
 
@@ -50,24 +54,28 @@ fun PopularCurrencies(modifier: Modifier = Modifier) {
                 .background(Color.White)
                 .height(40.dp),
         ) {
-            Text(
-                text = "Популярное",
+            IconButton(
+                onClick = { /*TODO*/ },
                 modifier = modifier
                     .weight(1f)
-                    .border(1.dp, Color.Black)
-                    .fillMaxSize(),
-                textAlign = TextAlign.Center,
-                fontSize = 20.sp
-            )
-            Text(
-                text = "Избранное",
+                    .fillMaxSize()
+            ) {
+                Icon(
+                    imageVector = Icons.Default.TrendingUp,
+                    contentDescription = "Популярное",
+                )
+            }
+            IconButton(
+                onClick = { /*TODO*/ },
                 modifier = modifier
                     .weight(1f)
-                    .border(1.dp, Color.Black)
-                    .fillMaxSize(),
-                textAlign = TextAlign.Center,
-                fontSize = 20.sp
-            )
+                    .fillMaxSize()
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.HotelClass,
+                    contentDescription = "Избранное",
+                )
+            }
         }
     }
 }
@@ -92,7 +100,9 @@ fun Currency(
         )
 
         Text(
-            text = currency.name, modifier = modifier.weight(1.4f)
+            text = currency.name, modifier = modifier
+                .weight(1.4f)
+                .padding(6.dp)
         )
 
         Text(
@@ -100,6 +110,7 @@ fun Currency(
             modifier = modifier
                 .fillMaxSize()
                 .weight(1f)
+                .padding(6.dp)
         )
         val differenceBetweenValueAndPrevious = currency.difference
         val textColor: Color
@@ -119,6 +130,13 @@ fun Currency(
                 .padding(6.dp)
                 .weight(1f)
         )
+        IconButton(onClick = { /*TODO*/ }) {
+            Icon(
+                Icons.Filled.StarOutline,
+                contentDescription = "Избранное",
+                modifier = modifier.weight(1f)
+            )
+        }
     }
 }
 
@@ -141,13 +159,14 @@ fun Header(modifier: Modifier = Modifier) {
         Text(
             text = "Цена",
             modifier = modifier
-                .weight(1f)
-                .padding(start = 16.dp),
+                .weight(1f),
             fontWeight = FontWeight.Bold
         )
         Text(
             text = "Изменение за последний час",
-            modifier = modifier.weight(1.4f),
+            modifier = modifier
+                .weight(1.4f)
+                .padding(end = 1.dp),
             fontWeight = FontWeight.Bold
         )
     }

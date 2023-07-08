@@ -1,9 +1,9 @@
 package com.neo.exchangeMonitoring.data.repositoryimpl
 
 import com.neo.exchangeMonitoring.data.database.dao.CurrencyDao
+import com.neo.exchangeMonitoring.data.database.entities.CurrencyDbEntity
 import com.neo.exchangeMonitoring.data.mapper.CurrencyRemoteToDatabaseEntityMapper
 import com.neo.exchangeMonitoring.data.remote.APICurrencyService
-import com.neo.exchangeMonitoring.data.remote.models.CurrencyRemote
 import com.neo.exchangeMonitoring.domain.repository.CurrencyRepository
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -19,15 +19,17 @@ class CurrencyRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllCurrency(): List<CurrencyRemote> {
-        //Тест добавления данных в room
-        val cl = apiCurrencyService.getCurrencies().valute.values.toList().first()
-        val currencyDbEntity =
-            currencyRemoteToDatabaseEntityMapper.currencyRemoteToCurrencyDatabaseEntityMap(cl)
+    override suspend fun getAllCurrency(): List<CurrencyDbEntity> {
+        val currencyRemoteList = apiCurrencyService.getCurrencies().valute.values.toList()
         currencyDao.clearCurrencyData()
-        currencyDao.insertNewCurrencyData(currencyDbEntity)
-
-        return apiCurrencyService.getCurrencies().valute.values.toList()
+        currencyRemoteList.forEach {
+            currencyDao.insertNewCurrencyData(
+                currencyRemoteToDatabaseEntityMapper.currencyRemoteToCurrencyDatabaseEntityMap(
+                    it
+                )
+            )
+        }
+        return currencyDao.getAllCurrency()
     }
 
     override fun getCurrency() {

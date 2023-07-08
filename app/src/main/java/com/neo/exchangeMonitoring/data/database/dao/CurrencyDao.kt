@@ -11,5 +11,6 @@ interface CurrencyDao {
     suspend fun insertNewCurrencyData(currency:CurrencyDbEntity)
     @Query("DELETE FROM currency")
     suspend fun clearCurrencyData()
-
+    @Query("SELECT * FROM currency")
+    suspend fun getAllCurrency() : List<CurrencyDbEntity>
 }
