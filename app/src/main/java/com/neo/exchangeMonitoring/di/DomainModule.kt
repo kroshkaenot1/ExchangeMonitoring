@@ -11,9 +11,8 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class DomainModule {
-
-    @Provides
     @Singleton
+    @Provides
     fun provideCurrencyRepositoryToGetAllCurrenciesUseCase(Impl: CurrencyRepository) =
         GetAllCurrenciesUseCase(currencyRepository = Impl)
 }
