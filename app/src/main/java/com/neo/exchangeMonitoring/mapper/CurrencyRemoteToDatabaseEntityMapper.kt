@@ -1,4 +1,4 @@
-package com.neo.exchangeMonitoring.data.mapper
+package com.neo.exchangeMonitoring.mapper
 
 import com.neo.exchangeMonitoring.data.database.entities.CurrencyDbEntity
 import com.neo.exchangeMonitoring.data.remote.models.CurrencyRemote

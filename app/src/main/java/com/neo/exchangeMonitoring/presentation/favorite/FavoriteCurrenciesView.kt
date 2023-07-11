@@ -1,4 +1,4 @@
-package com.neo.exchangeMonitoring.presentation.popular
+package com.neo.exchangeMonitoring.presentation.favorite
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -33,14 +33,13 @@ import com.neo.exchangeMonitoring.utils.choiceSignDependingOnValue
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PopularCurrencies(
+fun FavoriteCurrencies(
     modifier: Modifier = Modifier,
     textState: MutableState<TextFieldValue>,
     paddingValue: PaddingValues
 ) {
-
-    val popularCurrenciesViewModel = hiltViewModel<PopularCurrenciesViewModel>()
-    val currencies = popularCurrenciesViewModel.listOfCurrency.collectAsState().value
+    val favoriteCurrenciesViewModel = hiltViewModel<FavoriteCurrenciesViewModel>()
+    val currencies = favoriteCurrenciesViewModel.listOfFavoriteCurrency.collectAsState().value
     var searchUsedBefore = false
     LazyColumn(
         modifier = modifier
@@ -52,18 +51,18 @@ fun PopularCurrencies(
             Header()
         }
         if (textState.value.text.isNotEmpty()) {
-            popularCurrenciesViewModel.getAllCurrencyBySubString(textState.value.text)
+            favoriteCurrenciesViewModel.getAllFavoriteCurrencyBySubString(textState.value.text)
             searchUsedBefore = true
         } else {
             if (searchUsedBefore) {
-                popularCurrenciesViewModel.getAllCurrency()
+                favoriteCurrenciesViewModel.getAllFavoriteCurrency()
                 searchUsedBefore = false
             }
         }
         itemsIndexed(currencies) { _, currency ->
             Currency(
                 currency = currency,
-                popularCurrenciesViewModel = popularCurrenciesViewModel
+                favoriteCurrenciesViewModel = favoriteCurrenciesViewModel
             )
         }
     }
@@ -73,7 +72,7 @@ fun PopularCurrencies(
 fun Currency(
     modifier: Modifier = Modifier,
     currency: Currency,
-    popularCurrenciesViewModel: PopularCurrenciesViewModel
+    favoriteCurrenciesViewModel: FavoriteCurrenciesViewModel
 ) {
     val isCurrencyChecked = remember {
         mutableStateOf(currency.isFavorite)
@@ -116,7 +115,7 @@ fun Currency(
                 .weight(1f)
         )
         IconButton(onClick = {
-            popularCurrenciesViewModel.changeCurrencyFavorite(currency.id)
+            favoriteCurrenciesViewModel.changeCurrencyFavorite(currency.id)
             isCurrencyChecked.value = !isCurrencyChecked.value
         }) {
             Icon(
