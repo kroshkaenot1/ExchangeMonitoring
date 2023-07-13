@@ -5,7 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.neo.exchangeMonitoring.domain.model.Currency
 import com.neo.exchangeMonitoring.domain.usecase.ChangeCurrencyFavoriteUseCase
 import com.neo.exchangeMonitoring.domain.usecase.GetFavoriteCurrenciesUseCase
-import com.neo.exchangeMonitoring.domain.usecase.SearchFavoriteCurrencyBySubString
+import com.neo.exchangeMonitoring.domain.usecase.SortingFavoriteCurrenciesUseCase
+import com.neo.exchangeMonitoring.utils.SortingStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,7 +17,7 @@ import javax.inject.Inject
 class FavoriteCurrenciesViewModel @Inject constructor(
     private val getFavoriteCurrenciesUseCase: GetFavoriteCurrenciesUseCase,
     private val changeCurrencyFavoriteUseCase: ChangeCurrencyFavoriteUseCase,
-    private val searchFavoriteCurrencyBySubString: SearchFavoriteCurrencyBySubString
+    private val sortingFavoriteCurrenciesUseCase: SortingFavoriteCurrenciesUseCase
 ) :
     ViewModel() {
     private val _listOfFavoriteCurrency: MutableStateFlow<List<Currency>> =
@@ -42,9 +43,9 @@ class FavoriteCurrenciesViewModel @Inject constructor(
         viewModelScope.launch { changeCurrencyFavoriteUseCase.execute(id) }
     }
 
-    fun getAllFavoriteCurrencyBySubString(name: String) {
+    fun getAllSortedFavoriteCurrency(sortBy: Enum<SortingStates>, name: String) {
         viewModelScope.launch {
-            val currencyList = searchFavoriteCurrencyBySubString.execute(name)
+            val currencyList = sortingFavoriteCurrenciesUseCase.execute(sortBy, name)
             _listOfFavoriteCurrency.emit(currencyList)
         }
     }

@@ -16,10 +16,13 @@ import androidx.compose.material.icons.filled.HotelClass
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.TrendingUp
 import androidx.compose.material.icons.outlined.Sort
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -37,6 +40,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.neo.exchangeMonitoring.presentation.favorite.FavoriteCurrencies
 import com.neo.exchangeMonitoring.presentation.popular.PopularCurrencies
+import com.neo.exchangeMonitoring.utils.SortingStates
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,20 +53,34 @@ class MainActivity : ComponentActivity() {
             val textState = remember {
                 mutableStateOf(TextFieldValue(""))
             }
-            Scaffold(topBar = { TopAppBar(state = textState) },
+            val expanded = remember {
+                mutableStateOf(false)
+            }
+            val sortState = remember {
+                mutableStateOf(SortingStates.NONE)
+            }
+            Scaffold(topBar = {
+                TopAppBar(
+                    textState = textState,
+                    expanded = expanded,
+                    sortState = sortState
+                )
+            },
                 bottomBar = { BottomAppBar(navController = navController) })
             { paddingValues ->
                 NavHost(navController = navController, startDestination = "currencies") {
                     composable("currencies") {
                         PopularCurrencies(
                             textState = textState,
-                            paddingValue = paddingValues
+                            paddingValue = paddingValues,
+                            sortState = sortState
                         )
                     }
                     composable("favorites") {
                         FavoriteCurrencies(
                             textState = textState,
-                            paddingValue = paddingValues
+                            paddingValue = paddingValues,
+                            sortState = sortState
                         )
                     }
                 }
@@ -72,9 +90,15 @@ class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun TopAppBar(state: MutableState<TextFieldValue>, modifier: Modifier = Modifier) {
+    fun TopAppBar(
+        textState: MutableState<TextFieldValue>,
+        sortState: MutableState<SortingStates>,
+        modifier: Modifier = Modifier,
+        expanded: MutableState<Boolean>,
+
+        ) {
         TextField(
-            value = state.value, onValueChange = { value -> state.value = value },
+            value = textState.value, onValueChange = { value -> textState.value = value },
             modifier = modifier.fillMaxWidth(),
             leadingIcon = {
                 Icon(
@@ -87,8 +111,8 @@ class MainActivity : ComponentActivity() {
             },
             trailingIcon = {
                 Row {
-                    if (state.value != TextFieldValue("")) {
-                        IconButton(onClick = { state.value = TextFieldValue("") }) {
+                    if (textState.value != TextFieldValue("")) {
+                        IconButton(onClick = { textState.value = TextFieldValue("") }) {
                             Icon(
                                 Icons.Default.Close,
                                 contentDescription = "",
@@ -98,7 +122,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                     }
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { expanded.value = true }) {
                         Icon(
                             Icons.Outlined.Sort,
                             contentDescription = "",
@@ -106,6 +130,35 @@ class MainActivity : ComponentActivity() {
                                 .padding(10.dp)
                                 .size(24.dp)
                         )
+                    }
+                    DropdownMenu(
+                        expanded = expanded.value,
+                        onDismissRequest = { expanded.value = false }) {
+                        DropdownMenuItem(
+                            text = { Text("По возрастанию алфавита") },
+                            onClick = {
+                                sortState.value = SortingStates.SORT_BY_ALPHABET_IN_ASCENDING_ORDER
+                            })
+                        DropdownMenuItem(
+                            text = { Text("По убыванию алфавита") },
+                            onClick = {
+                                sortState.value = SortingStates.SORT_BY_ALPHABET_IN_DESCENDING_ORDER
+                            })
+                        DropdownMenuItem(
+                            text = { Text("По возрастанию значения") },
+                            onClick = {
+                                sortState.value = SortingStates.SORT_BY_VALUES_IN_ASCENDING_ORDER
+                            })
+                        DropdownMenuItem(
+                            text = { Text("По убыванию значения") },
+                            onClick = {
+                                sortState.value = SortingStates.SORT_BY_VALUES_IN_DESCENDING_ORDER
+                            })
+                        if (sortState.value != SortingStates.NONE) {
+                            DropdownMenuItem(
+                                text = { Text(text = "Сбросить сортировку") },
+                                onClick = { sortState.value = SortingStates.NONE })
+                        }
                     }
                 }
             },

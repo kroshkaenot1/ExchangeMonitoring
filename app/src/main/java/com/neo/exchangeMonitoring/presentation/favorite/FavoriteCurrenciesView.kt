@@ -29,6 +29,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.neo.exchangeMonitoring.domain.model.Currency
+import com.neo.exchangeMonitoring.utils.SortingStates
 import com.neo.exchangeMonitoring.utils.choiceSignDependingOnValue
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -36,11 +37,12 @@ import com.neo.exchangeMonitoring.utils.choiceSignDependingOnValue
 fun FavoriteCurrencies(
     modifier: Modifier = Modifier,
     textState: MutableState<TextFieldValue>,
+    sortState: MutableState<SortingStates>,
     paddingValue: PaddingValues
 ) {
+
     val favoriteCurrenciesViewModel = hiltViewModel<FavoriteCurrenciesViewModel>()
     val currencies = favoriteCurrenciesViewModel.listOfFavoriteCurrency.collectAsState().value
-    var searchUsedBefore = false
     LazyColumn(
         modifier = modifier
             .background(Color(200, 164, 100))
@@ -50,14 +52,13 @@ fun FavoriteCurrencies(
         stickyHeader {
             Header()
         }
-        if (textState.value.text.isNotEmpty()) {
-            favoriteCurrenciesViewModel.getAllFavoriteCurrencyBySubString(textState.value.text)
-            searchUsedBefore = true
+        if (textState.value.text.isNotEmpty() || sortState.value != SortingStates.NONE) {
+            favoriteCurrenciesViewModel.getAllSortedFavoriteCurrency(
+                sortBy = sortState.value,
+                name = textState.value.text
+            )
         } else {
-            if (searchUsedBefore) {
-                favoriteCurrenciesViewModel.getAllFavoriteCurrency()
-                searchUsedBefore = false
-            }
+            favoriteCurrenciesViewModel.getAllFavoriteCurrency()
         }
         itemsIndexed(currencies) { _, currency ->
             Currency(

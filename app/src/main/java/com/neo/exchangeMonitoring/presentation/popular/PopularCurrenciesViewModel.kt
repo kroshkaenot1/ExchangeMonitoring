@@ -3,9 +3,9 @@ package com.neo.exchangeMonitoring.presentation.popular
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.neo.exchangeMonitoring.domain.model.Currency
-import com.neo.exchangeMonitoring.domain.usecase.GetAllCurrenciesUseCase
 import com.neo.exchangeMonitoring.domain.usecase.ChangeCurrencyFavoriteUseCase
-import com.neo.exchangeMonitoring.domain.usecase.SearchCurrencyBySubStringUseCase
+import com.neo.exchangeMonitoring.domain.usecase.GetAllCurrenciesUseCase
+import com.neo.exchangeMonitoring.domain.usecase.SortingCurrenciesUseCase
 import com.neo.exchangeMonitoring.utils.SortingStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class PopularCurrenciesViewModel @Inject constructor(
     private val getAllCurrenciesUseCase: GetAllCurrenciesUseCase,
     private val changeCurrencyFavoriteUseCase: ChangeCurrencyFavoriteUseCase,
-    private val searchCurrencyBySubStringUseCase: SearchCurrencyBySubStringUseCase
+    private val sortingCurrenciesUseCase: SortingCurrenciesUseCase
 ) :
     ViewModel() {
     private val _listOfCurrency: MutableStateFlow<List<Currency>> =
@@ -32,22 +32,22 @@ class PopularCurrenciesViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
     }
+
     fun getAllCurrency() {
         viewModelScope.launch {
             val cr = getAllCurrenciesUseCase.execute()
             _listOfCurrency.emit(cr)
         }
     }
+
     fun changeCurrencyFavorite(id: Long) {
         viewModelScope.launch { changeCurrencyFavoriteUseCase.execute(id) }
     }
-    fun getAllCurrencyBySubString(name: String) {
+
+    fun getAllSortedCurrency(sortBy: Enum<SortingStates>, name: String) {
         viewModelScope.launch {
-            val currencyList = searchCurrencyBySubStringUseCase.execute(name)
+            val currencyList = sortingCurrenciesUseCase.execute(sortBy, name)
             _listOfCurrency.emit(currencyList)
         }
-    }
-    fun getAllSortedCurrency(sortBy : Enum<SortingStates>){
-
     }
 }
