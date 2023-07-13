@@ -53,6 +53,8 @@ class CurrencyRepositoryImpl @Inject constructor(
     }
 
     private suspend fun overwriteData(currencyRemoteList: List<CurrencyRemote>) {
+//        получаем все старые избранные валюты перед перезаписью
+//        val favoriteCurrenciesList = currencyDao.getAllFavoriteCurrency()
         currencyDao.clearCurrencyData()
         currencyRemoteList.forEach {
             currencyDao.insertNewCurrencyData(
