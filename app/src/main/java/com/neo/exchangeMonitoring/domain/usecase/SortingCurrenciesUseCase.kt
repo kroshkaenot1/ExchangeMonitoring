@@ -1,5 +1,8 @@
 package com.neo.exchangeMonitoring.domain.usecase
 
-class SortingCurrenciesUseCase {
+import com.neo.exchangeMonitoring.domain.repository.CurrencyRepository
+
+class SortingCurrenciesUseCase(private val currencyRepository: CurrencyRepository) {
+
 
 }

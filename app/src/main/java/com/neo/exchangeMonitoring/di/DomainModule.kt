@@ -6,6 +6,7 @@ import com.neo.exchangeMonitoring.domain.usecase.GetFavoriteCurrenciesUseCase
 import com.neo.exchangeMonitoring.domain.usecase.ChangeCurrencyFavoriteUseCase
 import com.neo.exchangeMonitoring.domain.usecase.SearchCurrencyBySubStringUseCase
 import com.neo.exchangeMonitoring.domain.usecase.SearchFavoriteCurrencyBySubString
+import com.neo.exchangeMonitoring.domain.usecase.SortingCurrenciesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,6 +34,10 @@ class DomainModule {
         SearchCurrencyBySubStringUseCase(currencyRepository = Impl)
     @Singleton
     @Provides
-    fun provideCurrencyRepositoryToSearchFavoriteCurrencyBySubString(Impl: CurrencyRepository) =
+    fun provideCurrencyRepositoryToSearchFavoriteCurrencyBySubStringUseCase(Impl: CurrencyRepository) =
         SearchFavoriteCurrencyBySubString(currencyRepository = Impl)
+    @Singleton
+    @Provides
+    fun provideCurrencyRepositoryToSortingCurrenciesUseCase(Impl: CurrencyRepository) =
+        SortingCurrenciesUseCase(currencyRepository = Impl)
 }

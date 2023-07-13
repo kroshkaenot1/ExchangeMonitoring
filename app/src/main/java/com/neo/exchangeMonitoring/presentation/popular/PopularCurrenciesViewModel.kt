@@ -6,6 +6,7 @@ import com.neo.exchangeMonitoring.domain.model.Currency
 import com.neo.exchangeMonitoring.domain.usecase.GetAllCurrenciesUseCase
 import com.neo.exchangeMonitoring.domain.usecase.ChangeCurrencyFavoriteUseCase
 import com.neo.exchangeMonitoring.domain.usecase.SearchCurrencyBySubStringUseCase
+import com.neo.exchangeMonitoring.utils.SortingStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -45,5 +46,8 @@ class PopularCurrenciesViewModel @Inject constructor(
             val currencyList = searchCurrencyBySubStringUseCase.execute(name)
             _listOfCurrency.emit(currencyList)
         }
+    }
+    fun getAllSortedCurrency(sortBy : Enum<SortingStates>){
+
     }
 }
