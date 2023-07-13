@@ -41,6 +41,7 @@ fun PopularCurrencies(
 
     val popularCurrenciesViewModel = hiltViewModel<PopularCurrenciesViewModel>()
     val currencies = popularCurrenciesViewModel.listOfCurrency.collectAsState().value
+    var searchUsedBefore = false
     LazyColumn(
         modifier = modifier
             .background(Color(200, 164, 100))
@@ -52,9 +53,12 @@ fun PopularCurrencies(
         }
         if (textState.value.text.isNotEmpty()) {
             popularCurrenciesViewModel.getAllCurrencyBySubString(textState.value.text)
-
+            searchUsedBefore = true
         } else {
-            popularCurrenciesViewModel.getAllCurrency()
+            if (searchUsedBefore) {
+                popularCurrenciesViewModel.getAllCurrency()
+                searchUsedBefore = false
+            }
         }
         itemsIndexed(currencies) { _, currency ->
             Currency(
