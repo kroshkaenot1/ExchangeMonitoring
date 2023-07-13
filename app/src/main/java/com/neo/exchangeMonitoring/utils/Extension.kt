@@ -15,5 +15,5 @@ fun Double.choiceSignDependingOnValue(): Pair<String, Color> {
 fun CurrencyRemote.compareToCurrencyDb(currencyDbEntity: CurrencyDbEntity): Boolean =
     this.name.hashCode() == currencyDbEntity.name.hashCode()
             && this.charCode.hashCode() == currencyDbEntity.charCode.hashCode()
-            && this.value == currencyDbEntity.value
-            && this.previous == currencyDbEntity.previous
+            && this.value / this.nominal == currencyDbEntity.value
+            && this.previous / this.nominal == currencyDbEntity.previous

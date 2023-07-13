@@ -29,6 +29,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.neo.exchangeMonitoring.domain.model.Currency
+import com.neo.exchangeMonitoring.presentation.blocks.Header
 import com.neo.exchangeMonitoring.utils.SortingStates
 import com.neo.exchangeMonitoring.utils.choiceSignDependingOnValue
 
@@ -132,26 +133,3 @@ fun Currency(
     }
 }
 
-@Composable
-fun Header(modifier: Modifier = Modifier) {
-    val settingForTextHeaders = mapOf(
-        "Валюта" to 0.8f,
-        "Наименование" to 1.4f,
-        "Цена" to 1f,
-        "Изменение за последний час" to 1.4f
-    )
-    Row(
-        modifier = modifier
-            .border(BorderStroke(1.dp, Color.Black))
-            .background(Color(19, 102, 46, 255))
-            .padding(start = 4.dp, end = 1.dp)
-            .fillMaxWidth()
-    ) {
-        settingForTextHeaders.forEach {
-            Text(
-                text = it.key, modifier = modifier.weight(it.value),
-                fontWeight = FontWeight.Bold
-            )
-        }
-    }
-}
