@@ -24,21 +24,30 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.ExchancgeMontoring.R
 import com.neo.exchangeMonitoring.domain.model.Currency
 import com.neo.exchangeMonitoring.presentation.blocks.Header
-import com.neo.exchangeMonitoring.utils.SortingStates
+import com.neo.exchangeMonitoring.utils.SortingStatesCurrency
 import com.neo.exchangeMonitoring.utils.choiceSignDependingOnValue
 
+val COLOR_BACKGROUND = Color(200, 164, 100)
+const val WEIGHT_CHARCODE_COLUMN = 0.8f
+const val WEIGHT_NAME_COLUMN = 1.4f
+const val WEIGHT_PRICE_COLUMN = 1f
+const val WEIGHT_DIFFERENCE_COLUMN = 1f
+const val WEIGHT_FAVORITE_COLUMN = 1f
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PopularCurrencies(
     modifier: Modifier = Modifier,
     textState: MutableState<TextFieldValue>,
-    sortState: MutableState<SortingStates>,
+    sortState: MutableState<SortingStatesCurrency>,
     paddingValue: PaddingValues
 ) {
 
@@ -46,14 +55,14 @@ fun PopularCurrencies(
     val currencies = popularCurrenciesViewModel.listOfCurrency.collectAsState().value
     LazyColumn(
         modifier = modifier
-            .background(Color(200, 164, 100))
+            .background(COLOR_BACKGROUND)
             .padding(paddingValue)
             .fillMaxSize()
     ) {
         stickyHeader {
             Header()
         }
-        if (textState.value.text.isNotEmpty() || sortState.value != SortingStates.NONE) {
+        if (textState.value.text.isNotEmpty() || sortState.value != SortingStatesCurrency.NONE) {
             popularCurrenciesViewModel.getAllSortedCurrency(
                 sortBy = sortState.value,
                 name = textState.value.text
@@ -83,28 +92,28 @@ fun Currency(
         modifier = modifier
             .border(BorderStroke(1.dp, Color.Gray))
             .fillMaxWidth()
-            .padding(3.dp)
+            .padding(dimensionResource(id = R.dimen.three_dp))
     ) {
         Text(
             text = currency.charCode,
             modifier = modifier
-                .weight(0.8f)
-                .padding(10.dp),
+                .weight(WEIGHT_CHARCODE_COLUMN)
+                .padding(dimensionResource(id = R.dimen.ten_dp)),
             fontWeight = FontWeight.Bold
         )
 
         Text(
             text = currency.name, modifier = modifier
-                .weight(1.4f)
-                .padding(6.dp)
+                .weight(WEIGHT_NAME_COLUMN)
+                .padding(dimensionResource(id = R.dimen.six_dp))
         )
 
         Text(
             text = String.format("%.2f", currency.price) + "₽",
             modifier = modifier
                 .fillMaxSize()
-                .weight(1f)
-                .padding(6.dp)
+                .weight(WEIGHT_PRICE_COLUMN)
+                .padding(dimensionResource(id = R.dimen.six_dp))
         )
         val text = currency.difference.choiceSignDependingOnValue().first
         val textColor = currency.difference.choiceSignDependingOnValue().second
@@ -113,8 +122,8 @@ fun Currency(
             color = textColor,
             modifier = modifier
                 .fillMaxSize()
-                .padding(6.dp)
-                .weight(1f)
+                .padding(dimensionResource(id = R.dimen.six_dp))
+                .weight(WEIGHT_DIFFERENCE_COLUMN)
         )
         IconButton(onClick = {
             popularCurrenciesViewModel.changeCurrencyFavorite(currency.id)
@@ -126,8 +135,8 @@ fun Currency(
                 } else {
                     Icons.Outlined.StarOutline
                 },
-                contentDescription = "Избранное",
-                modifier = modifier.weight(1f)
+                contentDescription = stringResource(id = R.string.change_favorite_currency),
+                modifier = modifier.weight(WEIGHT_FAVORITE_COLUMN)
             )
         }
     }

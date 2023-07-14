@@ -13,8 +13,12 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
+import com.example.ExchancgeMontoring.R
+
+const val WEIGHT_OF_COLUMNS = 1f
 
 @Composable
 fun BottomAppBar(modifier: Modifier = Modifier, navController: NavController) {
@@ -22,28 +26,28 @@ fun BottomAppBar(modifier: Modifier = Modifier, navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.White)
-            .height(45.dp),
+            .height(dimensionResource(id = R.dimen.forty_five_dp)),
     ) {
         IconButton(
             onClick = { navController.navigate("currencies") },
             modifier = modifier
-                .weight(1f)
+                .weight(WEIGHT_OF_COLUMNS)
                 .fillMaxSize()
         ) {
             Icon(
                 imageVector = Icons.Default.TrendingUp,
-                contentDescription = "Популярное",
+                contentDescription = stringResource(id = R.string.poplular_column_bar_descr),
             )
         }
         IconButton(
             onClick = { navController.navigate("favorites") },
             modifier = modifier
-                .weight(1f)
+                .weight(WEIGHT_OF_COLUMNS)
                 .fillMaxSize()
         ) {
             Icon(
                 imageVector = Icons.Filled.HotelClass,
-                contentDescription = "Избранное",
+                contentDescription = stringResource(id = R.string.favorite_column_bar_descr),
             )
         }
     }

@@ -2,4 +2,24 @@
     <string name="app_name">ExchangeMonitoring</string>
     <string name="retrofit_gson_date_format">yyyy-MM-dd\'T\'HH:mm:ss</string>
     <string name="retrofit_url">https://www.cbr-xml-daily.ru/</string>
+
+    <string name="poplular_column_bar_descr">Популярное</string>
+    <string name="favorite_column_bar_descr">Избранное</string>
+
+    <string name="header_data_charcode">Валюта</string>
+    <string name="header_data_name">Наименование</string>
+    <string name="header_data_price">Цена</string>
+    <string name="header_data_difference">Динамика (час)</string>
+
+    <string name="top_bar_search_descr">Поиск</string>
+    <string name="top_bar_clear_descr">Очистить поиск</string>
+    <string name="top_bar_sort_descr">Сортировка</string>
+
+    <string name="dropdown_menu_alph_asc">По возрастанию алфавита</string>
+    <string name="dropdown_menu_alph_desc">По убыванию алфавита</string>
+    <string name="dropdown_menu_price_asc">По возрастанию цены</string>
+    <string name="dropdown_menu_price_desc">По убыванию цены</string>
+    <string name="dropdown_menu_discard_parametrs">Сбросить сортировку</string>
+
+    <string name="change_favorite_currency">Сделать избранным или убрать из избранного</string>
 </resources>

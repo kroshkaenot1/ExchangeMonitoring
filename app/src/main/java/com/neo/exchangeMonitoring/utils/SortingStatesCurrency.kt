@@ -1,6 +1,6 @@
 package com.neo.exchangeMonitoring.utils
 
-enum class SortingStates {
+enum class SortingStatesCurrency {
     SORT_BY_ALPHABET_IN_ASCENDING_ORDER,
     SORT_BY_ALPHABET_IN_DESCENDING_ORDER,
     SORT_BY_VALUES_IN_ASCENDING_ORDER,

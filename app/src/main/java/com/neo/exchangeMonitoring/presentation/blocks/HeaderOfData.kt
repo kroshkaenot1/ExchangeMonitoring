@@ -10,22 +10,25 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.ExchancgeMontoring.R
 
+val BACKGROUND_COLOR_DATA = Color(19, 102, 46, 255)
 @Composable
 fun Header(modifier: Modifier = Modifier) {
     val settingForTextHeaders = mapOf(
-        "Валюта" to 0.8f,
-        "Наименование" to 1.4f,
-        "Цена" to 1f,
-        "Изменение за последний час" to 1.4f,
+        stringResource(id = R.string.header_data_charcode) to 0.8f,
+        stringResource(id = R.string.header_data_name) to 1.4f,
+        stringResource(id = R.string.header_data_price) to 1f,
+        stringResource(id = R.string.header_data_difference) to 1.4f,
         "" to 0.8f
     )
     Row(
         modifier = modifier
             .border(BorderStroke(1.dp, Color.Black))
-            .background(Color(19, 102, 46, 255))
+            .background(BACKGROUND_COLOR_DATA)
             .padding(start = 6.dp, end = 1.dp)
             .fillMaxWidth()
     ) {

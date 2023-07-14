@@ -21,29 +21,30 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.dp
-import com.neo.exchangeMonitoring.utils.SortingStates
+import com.example.ExchancgeMontoring.R
+import com.neo.exchangeMonitoring.utils.SortingStatesCurrency
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBar(
-    textState: MutableState<TextFieldValue>,
-    sortState: MutableState<SortingStates>,
     modifier: Modifier = Modifier,
-    expanded: MutableState<Boolean>,
-
-    ) {
+    textState: MutableState<TextFieldValue>,
+    sortState: MutableState<SortingStatesCurrency>,
+    expanded: MutableState<Boolean>
+) {
     TextField(
         value = textState.value, onValueChange = { value -> textState.value = value },
         modifier = modifier.fillMaxWidth(),
         leadingIcon = {
             Icon(
                 Icons.Default.Search,
-                contentDescription = "",
+                contentDescription = stringResource(id = R.string.top_bar_search_descr),
                 modifier = modifier
-                    .padding(14.dp)
-                    .size(24.dp)
+                    .padding(dimensionResource(id = R.dimen.forteen_dp))
+                    .size(dimensionResource(id = R.dimen.twenty_fore_dp))
             )
         },
         trailingIcon = {
@@ -52,49 +53,53 @@ fun TopAppBar(
                     IconButton(onClick = { textState.value = TextFieldValue("") }) {
                         Icon(
                             Icons.Default.Close,
-                            contentDescription = "",
+                            contentDescription = stringResource(id = R.string.top_bar_clear_descr),
                             modifier
-                                .padding(10.dp)
-                                .size(24.dp)
+                                .padding(dimensionResource(id = R.dimen.ten_dp))
+                                .size(dimensionResource(id = R.dimen.twenty_fore_dp))
                         )
                     }
                 }
                 IconButton(onClick = { expanded.value = true }) {
                     Icon(
                         Icons.Outlined.Sort,
-                        contentDescription = "",
+                        contentDescription = stringResource(id = R.string.top_bar_sort_descr),
                         modifier = modifier
-                            .padding(10.dp)
-                            .size(24.dp)
+                            .padding(dimensionResource(id = R.dimen.ten_dp))
+                            .size(dimensionResource(id = R.dimen.twenty_fore_dp))
                     )
                 }
                 DropdownMenu(
                     expanded = expanded.value,
                     onDismissRequest = { expanded.value = false }) {
                     DropdownMenuItem(
-                        text = { Text("По возрастанию алфавита") },
+                        text = { Text(stringResource(id = R.string.dropdown_menu_alph_asc)) },
                         onClick = {
-                            sortState.value = SortingStates.SORT_BY_ALPHABET_IN_ASCENDING_ORDER
+                            sortState.value =
+                                SortingStatesCurrency.SORT_BY_ALPHABET_IN_ASCENDING_ORDER
                         })
                     DropdownMenuItem(
-                        text = { Text("По убыванию алфавита") },
+                        text = { Text(stringResource(id = R.string.dropdown_menu_alph_desc)) },
                         onClick = {
-                            sortState.value = SortingStates.SORT_BY_ALPHABET_IN_DESCENDING_ORDER
+                            sortState.value =
+                                SortingStatesCurrency.SORT_BY_ALPHABET_IN_DESCENDING_ORDER
                         })
                     DropdownMenuItem(
-                        text = { Text("По возрастанию значения") },
+                        text = { Text(stringResource(id = R.string.dropdown_menu_price_asc)) },
                         onClick = {
-                            sortState.value = SortingStates.SORT_BY_VALUES_IN_ASCENDING_ORDER
+                            sortState.value =
+                                SortingStatesCurrency.SORT_BY_VALUES_IN_ASCENDING_ORDER
                         })
                     DropdownMenuItem(
-                        text = { Text("По убыванию значения") },
+                        text = { Text(stringResource(id = R.string.dropdown_menu_price_desc)) },
                         onClick = {
-                            sortState.value = SortingStates.SORT_BY_VALUES_IN_DESCENDING_ORDER
+                            sortState.value =
+                                SortingStatesCurrency.SORT_BY_VALUES_IN_DESCENDING_ORDER
                         })
-                    if (sortState.value != SortingStates.NONE) {
+                    if (sortState.value != SortingStatesCurrency.NONE) {
                         DropdownMenuItem(
-                            text = { Text(text = "Сбросить сортировку") },
-                            onClick = { sortState.value = SortingStates.NONE })
+                            text = { Text(stringResource(id = R.string.dropdown_menu_discard_parametrs)) },
+                            onClick = { sortState.value = SortingStatesCurrency.NONE })
                     }
                 }
             }

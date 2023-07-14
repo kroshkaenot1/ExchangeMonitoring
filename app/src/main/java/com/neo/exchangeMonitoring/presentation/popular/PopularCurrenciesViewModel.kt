@@ -6,10 +6,10 @@ import com.neo.exchangeMonitoring.domain.model.Currency
 import com.neo.exchangeMonitoring.domain.usecase.ChangeCurrencyFavoriteUseCase
 import com.neo.exchangeMonitoring.domain.usecase.GetAllCurrenciesUseCase
 import com.neo.exchangeMonitoring.domain.usecase.SortingCurrenciesUseCase
-import com.neo.exchangeMonitoring.utils.SortingStates
+import com.neo.exchangeMonitoring.utils.SortingStatesCurrency
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,7 +23,7 @@ class PopularCurrenciesViewModel @Inject constructor(
     private val _listOfCurrency: MutableStateFlow<List<Currency>> =
         MutableStateFlow(emptyList())
 
-    val listOfCurrency: StateFlow<List<Currency>> = _listOfCurrency
+    val listOfCurrency = _listOfCurrency.asStateFlow()
 
     init {
         getAllCurrency()
@@ -35,8 +35,8 @@ class PopularCurrenciesViewModel @Inject constructor(
 
     fun getAllCurrency() {
         viewModelScope.launch {
-            val cr = getAllCurrenciesUseCase.execute()
-            _listOfCurrency.emit(cr)
+            val currencyList = getAllCurrenciesUseCase.execute()
+            _listOfCurrency.emit(currencyList)
         }
     }
 
@@ -44,7 +44,7 @@ class PopularCurrenciesViewModel @Inject constructor(
         viewModelScope.launch { changeCurrencyFavoriteUseCase.execute(id) }
     }
 
-    fun getAllSortedCurrency(sortBy: Enum<SortingStates>, name: String) {
+    fun getAllSortedCurrency(sortBy: Enum<SortingStatesCurrency>, name: String) {
         viewModelScope.launch {
             val currencyList = sortingCurrenciesUseCase.execute(sortBy, name)
             _listOfCurrency.emit(currencyList)

@@ -6,6 +6,7 @@ import com.neo.exchangeMonitoring.domain.usecase.GetAllCurrenciesUseCase
 import com.neo.exchangeMonitoring.domain.usecase.GetFavoriteCurrenciesUseCase
 import com.neo.exchangeMonitoring.domain.usecase.SortingCurrenciesUseCase
 import com.neo.exchangeMonitoring.domain.usecase.SortingFavoriteCurrenciesUseCase
+import com.neo.exchangeMonitoring.mapper.CurrencyDbEntityToCurrencyDomainMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,8 +18,14 @@ import javax.inject.Singleton
 class DomainModule {
     @Singleton
     @Provides
-    fun provideCurrencyRepositoryToGetAllCurrenciesUseCase(Impl: CurrencyRepository) =
-        GetAllCurrenciesUseCase(currencyRepository = Impl)
+    fun provideCurrencyRepositoryToGetAllCurrenciesUseCase(
+        Impl: CurrencyRepository,
+        currencyDbEntityToCurrencyDomainMapper: CurrencyDbEntityToCurrencyDomainMapper
+    ) =
+        GetAllCurrenciesUseCase(
+            currencyRepository = Impl,
+            currencyDbEntityToCurrencyDomainMapper = currencyDbEntityToCurrencyDomainMapper
+        )
 
     @Singleton
     @Provides
@@ -27,16 +34,34 @@ class DomainModule {
 
     @Singleton
     @Provides
-    fun provideCurrencyRepositoryToGetFavoriteCurrenciesUseCase(Impl: CurrencyRepository) =
-        GetFavoriteCurrenciesUseCase(currencyRepository = Impl)
+    fun provideCurrencyRepositoryToGetFavoriteCurrenciesUseCase(
+        Impl: CurrencyRepository,
+        currencyDbEntityToCurrencyDomainMapper: CurrencyDbEntityToCurrencyDomainMapper
+    ) =
+        GetFavoriteCurrenciesUseCase(
+            currencyRepository = Impl,
+            currencyDbEntityToCurrencyDomainMapper = currencyDbEntityToCurrencyDomainMapper
+        )
 
     @Singleton
     @Provides
-    fun provideCurrencyRepositoryToSortingCurrenciesUseCase(Impl: CurrencyRepository) =
-        SortingCurrenciesUseCase(currencyRepository = Impl)
+    fun provideCurrencyRepositoryToSortingCurrenciesUseCase(
+        Impl: CurrencyRepository,
+        currencyDbEntityToCurrencyDomainMapper: CurrencyDbEntityToCurrencyDomainMapper
+    ) =
+        SortingCurrenciesUseCase(
+            currencyRepository = Impl,
+            currencyDbEntityToCurrencyDomainMapper = currencyDbEntityToCurrencyDomainMapper
+        )
 
     @Singleton
     @Provides
-    fun provideCurrencyRepositoryToSortingFavoriteCurrenciesUseCase(Impl: CurrencyRepository) =
-        SortingFavoriteCurrenciesUseCase(currencyRepository = Impl)
+    fun provideCurrencyRepositoryToSortingFavoriteCurrenciesUseCase(
+        Impl: CurrencyRepository,
+        currencyDbEntityToCurrencyDomainMapper: CurrencyDbEntityToCurrencyDomainMapper
+    ) =
+        SortingFavoriteCurrenciesUseCase(
+            currencyRepository = Impl,
+            currencyDbEntityToCurrencyDomainMapper = currencyDbEntityToCurrencyDomainMapper
+        )
 }

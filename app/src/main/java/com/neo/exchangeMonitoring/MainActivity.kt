@@ -15,7 +15,7 @@ import com.neo.exchangeMonitoring.presentation.blocks.BottomAppBar
 import com.neo.exchangeMonitoring.presentation.blocks.TopAppBar
 import com.neo.exchangeMonitoring.presentation.favorite.FavoriteCurrencies
 import com.neo.exchangeMonitoring.presentation.popular.PopularCurrencies
-import com.neo.exchangeMonitoring.utils.SortingStates
+import com.neo.exchangeMonitoring.utils.SortingStatesCurrency
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +24,17 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+//            val systemUiController = rememberSyst
+//            with(systemUiController) {
+//                setStatusBarColor(
+//                    color = statusBarColor.copy(alpha = TRANSPARENCY).compositeOver(Color.Black),
+//                    darkIcons = statusBarColor == Color.White
+//                )
+//                setNavigationBarColor(
+//                    color = navigationBarColor.copy(alpha = TRANSPARENCY).compositeOver(Color.Black),
+//                    darkIcons = navigationBarColor == Color.White
+//                )
+//            }
             val navController = rememberNavController()
             val textState = remember {
                 mutableStateOf(TextFieldValue(""))
@@ -32,7 +43,7 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf(false)
             }
             val sortState = remember {
-                mutableStateOf(SortingStates.NONE)
+                mutableStateOf(SortingStatesCurrency.NONE)
             }
             Scaffold(topBar = {
                 TopAppBar(
