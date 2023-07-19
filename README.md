@@ -35,10 +35,10 @@
 Точка старта приложения - открывается список с валютами, элементы загружаются из локальной базы данных перед этим
 обновляя данные с API.
 
-![img.png](readme_img/start.png)
+<img alt="img.png" height="100" src="readme_img/start.png" width="100"/>
 
 При нажатии на звезду, меняется иконка и элемент добавляется в избранное
-![img.png](readme_img/favoriteElement.png)
+<img alt="img.png" height="100" src="readme_img/favoriteElement.png" width="100"/>
 
 При нажатии на звезду в навигационном баре происходит переключение на экран с избранными валютами
 ![img.png](readme_img/favoriteScreen.png)
