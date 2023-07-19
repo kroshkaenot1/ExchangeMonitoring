@@ -38,11 +38,11 @@
 <img alt="img.png" height="600" src="readme_img/start.png" width="290"/>
 
 При нажатии на звезду, меняется иконка и элемент добавляется в избранное
-<img alt="img.png" height="100" src="readme_img/favoriteElement.png" width="100"/>
+<img alt="img.png" height="600" src="readme_img/favoriteCurrency.png" width="290"/>
 
 При нажатии на звезду в навигационном баре происходит переключение на экран с избранными валютами
-![img.png](readme_img/favoriteScreen.png)
+<img alt="img.png" height="600" src="readme_img/favoriteScreen.png" width="290"/>
 
 Также на обоих экранах можно воспользоваться поиском и сортировкой валют
-![img.png](readme_img/search.png)
-![img.png](readme_img/sort.png)
+<img alt="img.png" height="600" src="readme_img/search.png" width="290"/>
+<img alt="img.png" height="600" src="readme_img/sort.png" width="290"/>
