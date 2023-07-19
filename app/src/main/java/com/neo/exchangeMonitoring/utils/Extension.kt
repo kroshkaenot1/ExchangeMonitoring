@@ -6,9 +6,9 @@ import com.neo.exchangeMonitoring.data.remote.models.CurrencyRemote
 
 fun Double.choiceSignDependingOnValue(): Pair<String, Color> {
     return if (this > 0) {
-        Pair("+" + String.format("%.2f", this) + "₽", Color.Green)
+        Pair("+" + String.format("%.2f", this), Color.Green)
     } else {
-        Pair(String.format("%.2f", this) + "₽", Color.Red)
+        Pair(String.format("%.2f", this), Color.Red)
     }
 }
 

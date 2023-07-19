@@ -11,31 +11,39 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.ExchancgeMontoring.R
 
-val BACKGROUND_COLOR_DATA = Color(19, 102, 46, 255)
+val BACKGROUND_COLOR_DATA = Color(0xffb8dbef)
+val SEPARATOR_COLOR = Color(0xffe6f4fd)
+val HEADER_FONT = FontFamily(Font(R.font.centurion))
 @Composable
 fun Header(modifier: Modifier = Modifier) {
     val settingForTextHeaders = mapOf(
-        stringResource(id = R.string.header_data_charcode) to 0.8f,
-        stringResource(id = R.string.header_data_name) to 1.4f,
+        stringResource(id = R.string.header_data_charcode) to 1f,
+        stringResource(id = R.string.header_data_name) to 1.5f,
         stringResource(id = R.string.header_data_price) to 1f,
-        stringResource(id = R.string.header_data_difference) to 1.4f,
+        stringResource(id = R.string.header_data_difference) to 1f,
         "" to 0.8f
     )
     Row(
         modifier = modifier
-            .border(BorderStroke(1.dp, Color.Black))
+            .border(BorderStroke(1.dp, SEPARATOR_COLOR))
             .background(BACKGROUND_COLOR_DATA)
-            .padding(start = 6.dp, end = 1.dp)
             .fillMaxWidth()
     ) {
         settingForTextHeaders.forEach {
             Text(
-                text = it.key, modifier = modifier.weight(it.value),
-                fontWeight = FontWeight.Bold
+                text = it.key,
+                modifier = modifier
+                    .weight(it.value)
+                    .padding(5.dp),
+                color = Color.White,
+                fontFamily = HEADER_FONT,
+                textAlign = TextAlign.Center
             )
         }
     }

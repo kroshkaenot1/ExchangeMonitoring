@@ -26,7 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import com.example.ExchancgeMontoring.R
 import com.neo.exchangeMonitoring.utils.SortingStatesCurrency
-
+val BAR_COLOR = Color(0xffe9e9e9)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBar(
@@ -112,7 +112,7 @@ fun TopAppBar(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
-            containerColor = Color.Gray
+            containerColor = BAR_COLOR
         )
     )
 }
