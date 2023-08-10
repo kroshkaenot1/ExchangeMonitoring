@@ -23,6 +23,7 @@
 * Room
 * Hilt
 * Retrofit
+  
 Приложение написано с
   соблюдением [Clean Architecture](https://github.com/ImangazalievM/CleanArchitectureManifest/blob/master/README-RU.md)
   и [MVVM](https://en.wikipedia.org/wiki/Model–view–viewmodel) подхода.
